@@ -3,7 +3,7 @@ $("#search-button").on("click", function () {
 
     $("#search-value").val("");
 
-    fiveDay(searchValue)
+    weekDay(searchValue)
     searchForecast(searchValue)
     historyBar.push(searchValue);
     localStorage.setItem("search", JSON.stringify(historyBar));
@@ -64,7 +64,7 @@ function uvIndex(lat, lon) {
 
 var todaysDate = moment().format('MMM. Do, YYYY');
 
-function fiveDay(searchValue) {
+function weekDay(searchValue) {
     $.ajax({
         type: "GET",
         url: `https://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=51532d704a6d1621b8661ec4a5906bba&units=imperial`,
@@ -111,7 +111,7 @@ function renderHistoryBar() {
         enterCity.setAttribute("value", historyBar[i]);
         enterCity.addEventListener("click", function () {
             searchForecast(enterCity.value);
-            fiveDay(enterCity.value);
+            weekDay(enterCity.value);
         })
         cityList.append(enterCity);
     }
@@ -120,7 +120,7 @@ function renderHistoryBar() {
 renderHistoryBar();
 if (historyBar.length > 0) {
     searchForecast(historyBar[historyBar.length - 1]);
-    fiveDay(historyBar[historyBar.length - 1]);
+    weekDay(historyBar[historyBar.length - 1]);
 }
 
 // });
